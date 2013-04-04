@@ -1,4 +1,4 @@
-(defproject pipe-metrics "0.1.0"
+(defproject org.marianoguerra/pipe-metrics "0.1.0"
   :description "a lib to add coda hale's metrics to marianoguerra's pipe library"
   :url "http://github.com/marianoguerra/pipe-metrics"
   :license {:name "Eclipse Public License"
