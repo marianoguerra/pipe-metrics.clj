@@ -33,6 +33,24 @@ example usage:
 	user=> (counters/value (get-metric "my-counter"))
 	3
 
+	; you can specify a custom update function that can change the
+	; metric according to something else (like current value on the pipe)
+
+	user=> (defn increase-counter-by-two [counter value inc! dec! clear!] (inc! counter 2))
+	#'user/increase-counter-by-two
+	user=> (defn decrease-counter [counter value inc! dec! clear!] (dec! counter))
+	#'user/decrease-counter
+	user=> (defn clear-counter [counter value inc! dec! clear!] (clear! counter))
+	#'user/clear-counter
+	user=> (pipe {:value 42} (counter "my-counter" :update-fn decrease-counter) plus-one)
+	{:value 43}
+	user=> (counters/value (get-metric "my-counter"))
+	2
+	user=> (pipe {:value 42} (counter "my-counter" :update-fn clear-counter) plus-one)
+	{:value 43}
+	user=> (counters/value (get-metric "my-counter"))
+	0
+
 ## License
 
 Copyright © 2013 marianoguerra
